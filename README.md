@@ -12,15 +12,17 @@ var myTimePicker = new TimePicker({
 
 or if you need to set a valid time range
 ```js
+var TimeRange = require('time-picker').TimeRange;
+
 var myTimePicker = new TimePicker({
   el: document.body.querySelector('.js-time-picker-container'),
-  valid: new TimePicker.TimeRange('9:35am'/*from*/, '8pm' /*to*/)
+  valid: new TimeRange('9:35am'/*from*/, '8pm' /*to*/)
 });
 ```
 
 when you need to update the valid range
 ```js
-myTimePicker.updateValid(new TimePicker.TimeRange('8am', '7:05pm'));
+myTimePicker.updateValid(new TimeRange('8am', '7:05pm'));
 ```
 
 actually getting the time that has been set
