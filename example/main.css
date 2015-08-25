@@ -88,7 +88,8 @@
 }
 .timepicker__clockface--enabled .timepicker__hours > div.timepicker-hour--enabled:hover,
 .timepicker__minutes > div.timepicker-minute--enabled:hover,
-.timepicker__clockface--enabled .timepicker__hours--selected {
+.timepicker__clockface--enabled .timepicker__hours--selected,
+.timepicker__clockface--enabled .timepicker__minutes--selected {
   background: #009623;
   color: #FFF !important;
 }
