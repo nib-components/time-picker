@@ -38,12 +38,11 @@ myTimePicker.updateValid(new TimeRange('8am', '7:05pm'));
 actually getting the time that has been set
 ```js
 // user selects 9:35am
-var time = myTimePicker.getTime();
-console.log(time.hours);
+console.log(time.hours.value);
 // 9
-console.log(time.minutes);
+console.log(time.minutes.value);
 // 35
-console.log(time.timePart);
+console.log(time.timePart.value);
 // 0
 // timeParts are binary representations of am/pm - where am = 0 and pm = 1
 ```
