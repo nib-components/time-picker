@@ -32,11 +32,9 @@ var MinutePicker = function(el, validator){
  * @param {Number} timePart - the time part corresponding to the minutes shown (0/1 for am/pm respectively)
  */
 MinutePicker.prototype.show = function (hour, timePart){
-  if(this.validator){
-    for(var i = 0; i < this.minutes.length; i++){
-      var min = this.minutes[i];
-      min.setEnabled(this.validator.validateMinute(min, hour, timePart));
-    }
+  for(var i = 0; i < this.minutes.length; i++){
+    var min = this.minutes[i];
+    min.setEnabled(this.validator ? this.validator.validateMinute(min, hour, timePart) : true);
   }
   this.el.classList.remove('is-hidden');
 };

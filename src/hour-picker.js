@@ -21,11 +21,9 @@ var HourPicker = function(el, validator){
 };
 
 HourPicker.prototype.show = function (timePart){
-  if(this.validator){
-    for(var i = 0; i < this.hours.length; i++){
-      var hr = this.hours[i];
-      hr.setEnabled(this.validator.validateHour(hr, timePart));
-    }
+  for(var i = 0; i < this.hours.length; i++){
+    var hr = this.hours[i];
+    hr.setEnabled(this.validator ? this.validator.validateHour(hr, timePart) : true);
   }
   this.el.classList.remove('is-hidden');
 };
