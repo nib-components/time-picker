@@ -1,0 +1,226 @@
+/* START: development styles */
+.box {
+  width: 110px;
+  height: 110px;
+  position: relative;
+  border: 1px solid yellow;
+  display: none;
+}
+.bg {
+  background: #009623;
+  height: 300px;
+  width: 300px;
+  padding: 20px;
+}
+.tr { left: 110px; }
+.is-hidden {
+  display: none!important;
+  visibility: hidden!important;
+}
+/* END: development styles */
+.timepicker__header {
+  width: 220px;
+  padding: 10px 20px;
+  background: #26b11b;
+  margin: 0 20px;
+  color: #FFFFFF;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+}
+.timepicker__current > span {
+  width: 33px;
+  display: inline-block;
+  cursor: pointer;
+}
+.timepicker__current > span.timepicker__current-timepart {
+  font-weight: 700;
+  font-size: 14px;
+  margin-left: -3px;
+  cursor: auto;
+}
+.timepicker__clockback {
+  background: #eeeeee;
+  width: 220px;
+  padding: 20px;
+  margin: 0 20px 20px;
+}
+.timepicker__clockface {
+  width: 220px;
+  height: 220px;
+  margin: 0;
+  padding: 0;
+  background: #EEEEEE;
+  color: #AAAAAA;
+  border-radius: 110px;
+  position: relative;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  transition: background 200ms;
+}
+.timepicker__clockface--enabled {
+  background: #FFFFFF;
+  color: #000000;
+}
+.timepicker__hours > div,
+.timepicker__minutes > div{
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  border-radius: 17px;
+  text-align: center;
+  transition: background 200ms;
+}
+.timepicker__clockface--enabled .timepicker__hours > div,
+.timepicker__minutes > div {
+ color: #eeeeee;
+}
+.timepicker__clockface--enabled .timepicker__hours > div.timepicker-hour--enabled,
+.timepicker__minutes > div.timepicker-minute--enabled {
+  color: #000000;
+}
+.timepicker__clockface--enabled .timepicker__hours > div.timepicker-hour--enabled:hover,
+.timepicker__minutes > div.timepicker-minute--enabled:hover,
+.timepicker__time > div:hover {
+  cursor: pointer;
+}
+.timepicker__clockface--enabled .timepicker__hours > div.timepicker-hour--enabled:hover,
+.timepicker__minutes > div.timepicker-minute--enabled:hover,
+.timepicker__clockface--enabled .timepicker__hours--selected {
+  background: #009623;
+  color: #FFF !important;
+}
+.timepicker__clockface--enabled .timepicker__hours > div.timepicker-hour--enabled:active,
+.timepicker__minutes > div.timepicker-minute--enabled:active {
+  background:  #006117;
+}
+.timepicker-hour__12 {
+  left: 92px;
+  top: 4px;
+}
+.timepicker-hour__1 {
+  left: 137px;
+  top: 17px;
+}
+.timepicker-hour__2 {
+  left: 166px;
+  top: 48px;
+}
+.timepicker-hour__3 {
+  left: 180px;
+  top: 95px;
+}
+.timepicker-hour__4 {
+  left: 166px;
+  top: 136px;
+}
+.timepicker-hour__5 {
+  left: 135px;
+  top: 170px;
+}
+.timepicker-hour__6 {
+  top: 181px;
+  left: 94px;
+}
+.timepicker-hour__7 {
+  left: 52px;
+  top: 170px;
+}
+.timepicker-hour__8 {
+  left: 19px;
+  top: 138px;
+}
+.timepicker-hour__9 {
+  top: 94px;
+  left: 7px;
+}
+.timepicker-hour__10 {
+  top: 50px;
+  left: 19px;
+}
+.timepicker-hour__11 {
+  left: 50px;
+  top: 17px;
+}
+.timepicker-minute__0 {
+  left: 92px;
+  top: 4px;
+}
+.timepicker-minute__5 {
+  left: 137px;
+  top: 18px;
+}
+.timepicker-minute__10 {
+  left: 168px;
+  top: 51px;
+}
+.timepicker-minute__15 {
+  top: 93px;
+  left: 180px;
+}
+.timepicker-minute__20 {
+  left: 168px;
+  top: 137px;
+}
+.timepicker-minute__25 {
+  left: 137px;
+  top: 168px;
+}
+.timepicker-minute__30 {
+  top: 182px;
+  left: 92px;
+}
+.timepicker-minute__35 {
+  left: 51px;
+  top: 170px;
+}
+.timepicker-minute__40 {
+  left: 18px;
+  top: 138px;
+}
+.timepicker-minute__45 {
+  top: 93px;
+  left: 4px;
+}
+.timepicker-minute__50 {
+  left: 18px;
+  top: 49px;
+}
+.timepicker-minute__55 {
+  left: 45px;
+  top: 18px;
+}
+.timepicker__time > div {
+  width: 32px;
+  position: absolute;
+  border: 2px solid #AAAAAA;
+  border-radius: 2px;
+  text-align:center;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 3px 1px;
+  top: 99px;
+  background: #FFFFFF;
+  color: #000000;
+  transition: background, border 200ms;
+}
+.timepicker__time > div:hover,
+.timepicker__time > div.timepicker__time--selected {
+  color: #FFF;
+  background: #009623;
+  border: 2px solid #009623;
+}
+.timepicker__time > div:active {
+  background:  #006117;
+}
+.timepicker__am {
+  left: 74px;
+  border-bottom-left-radius: 4px;
+}
+.timepicker__pm {
+  left: 113px;
+  border-bottom-right-radius: 4px;
+}
