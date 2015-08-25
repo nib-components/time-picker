@@ -16,14 +16,18 @@ var getTimeObj = function(input){
 
 /**
  * Validator - validates an hour or minute given a date range
- * @param range {TimeRange} - the date range containing a to/from of valid times, e.g {from: '8am', to: '3pm'}
+ * @param rangeOrValidation {TimeRange|function} - the date range containing a to/from of valid times, e.g {from: '8am', to: '3pm'} or a validation function that provides the hour, minute and time part
  * @constructor
  */
-var Validator = function(range){
+var Validator = function(rangeOrValidation){
+  if(typeof rangeOrValidation === 'function'){
+    this.validation = rangeOrValidation;
+    return;
+  }
   this.am = [];
   this.pm = [];
-  var start = getTimeObj(range.from);
-  var end = getTimeObj(range.to);
+  var start = getTimeObj(rangeOrValidation.from);
+  var end = getTimeObj(rangeOrValidation.to);
   var toPush;
   while(start.timePart !== end.timePart || start.hour !== end.hour || start.minute !== end.minute){
     toPush = start.timePart === constants.TIME_PARTS.AM ? this.am : this.pm;
@@ -49,7 +53,6 @@ var Validator = function(range){
     hour: end.hour,
     minute: end.minute
   });
-
 };
 
 /**
@@ -60,6 +63,12 @@ var Validator = function(range){
  * @returns {boolean} - whether the hour is valid or not
  */
 Validator.prototype.validateHour = function(hour, timePart){
+  if(this.validation){
+    return this.validation({
+      hour: hour,
+      timePart: timePart
+    });
+  }
   var toCheck = timePart === constants.TIME_PARTS.AM ? this.am : this.pm;
   if(toCheck.length > 0){
     for(var i = 0; i < toCheck.length; i++){
@@ -81,6 +90,13 @@ Validator.prototype.validateHour = function(hour, timePart){
  * @returns {boolean} - whether the minute is valid or not
  */
 Validator.prototype.validateMinute = function(minute, hour, timePart){
+  if(this.validation){
+    return this.validation({
+      hour: hour,
+      minute: minute,
+      timePart: timePart
+    });
+  }
   var toCheck = timePart === constants.TIME_PARTS.AM ? this.am : this.pm;
   if(toCheck.length > 0){
     for(var i = 0; i < toCheck.length; i++){
