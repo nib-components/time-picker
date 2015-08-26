@@ -10,7 +10,7 @@ var constants    = require('./src/constants');
 /**
  * @module time-picker
  * @class TimePicker
- * @param options {{el: Element, valid: TimeRange}}
+ * @param options {{el: Element, valid: TimeRange|function}}
  * @constructor
  */
 var TimePicker = function (options){
@@ -108,7 +108,7 @@ TimePicker.prototype.show = TimePicker.prototype.renderStart;
  * @returns {Boolean}
  */
 TimePicker.prototype.hasTime = function(){
-  return (this.timePart.value && this.hours.value && this.minutes.value);
+  return (!!this.timePart.value && !!this.hours.value && !!this.minutes.value);
 };
 
 /**
