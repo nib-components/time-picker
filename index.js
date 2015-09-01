@@ -43,7 +43,7 @@ var TimePicker = function (options){
   });
 
   this.minutes.on('change', function(value){
-    self.renderStart();
+    self.setHand((value / 5) || 12);
     self.emit('change', self.getTime());
     self.emit('change:minute', value);
   });
