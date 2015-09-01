@@ -109,5 +109,20 @@ Validator.prototype.validateMinute = function(minute, hour, timePart){
   return false;
 };
 
+Validator.prototype.firstHour = function(timePart){
+  return timePart === constants.TIME_PARTS.AM ? this.am[0] : this.pm[0];
+};
+
+Validator.prototype.firstMinute = function(hour, timePart){
+  var time = timePart === constants.TIME_PARTS.AM ? this.am : this.pm;
+  for(var i = 0; i <  time.length; i++){
+    var candidate = time[i];
+    if(candidate.hour === hour){
+      return candidate;
+    }
+  }
+  return {};
+};
+
 module.exports = Validator;
 

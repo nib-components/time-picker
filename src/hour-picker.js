@@ -6,7 +6,6 @@ var HourPicker = function(el, validator){
   this.el = el;
   this.validator = validator;
   this.hours = [];
-  this.el.innerHTML = '';
 
   for(var i = 0; i < 12; i++) {
     // create hour buttons

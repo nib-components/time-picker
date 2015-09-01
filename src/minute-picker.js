@@ -12,7 +12,6 @@ var MinutePicker = function(el, validator){
   this.el = el;
   this.minutes = [];
   this.validator = validator;
-  this.el.innerHTML = '';
   for(var i = 0; i < 12; i++){
     // create minute buttons
     var min = new TimeOption({

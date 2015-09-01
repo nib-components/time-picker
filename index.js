@@ -1,11 +1,9 @@
 var template     = require('./src/template.html');
 var Emitter      = require('component-emitter');
 var Validator    = require('./src/validator');
-var Header       = require('./src/header');
-var TimePart     = require('./src/time-part');
+var AmPmPicker   = require('./src/ampm-picker');
 var HourPicker   = require('./src/hour-picker');
 var MinutePicker = require('./src/minute-picker');
-var constants    = require('./src/constants');
 
 /**
  * @module time-picker
@@ -18,46 +16,39 @@ var TimePicker = function (options){
 
   this.el           = options.el;
   this.el.innerHTML = template;
-  this.clockFace    = this.el.querySelector('.js-clockface');
-  this.timePart     = new TimePart(this.el);
-  this.header       = new Header(this.el);
-
   var validator = options.valid ? new Validator(options.valid) : null;
+
+  this.handEl   = this.el.querySelector('.js-hand');
+  this.handContainer = this.el.querySelector('.js-hand-container');
+  var amPmEl    = this.el.querySelector('.js-timepicker-states__ampm');
   var hoursEl   = this.el.querySelector('.js-timepicker-states__hours');
   var minutesEl = this.el.querySelector('.js-timepicker-states__minutes');
+  this.amPm     = new AmPmPicker(amPmEl);
   this.hours    = new HourPicker(hoursEl, validator);
   this.minutes  = new MinutePicker(minutesEl, validator);
 
-  this.on('change', function(time){
-    self.header.update(time);
-  });
-
-  this.timePart.on('change', function(){
+  this.amPm.on('change', function(value){
     self.reset();
     self.renderHours();
     self.emit('change', self.getTime());
+    self.emit('change:amPm', value);
   });
 
-  this.header.on('click', function(type){
-    if(type === constants.TIME_OPTION.TYPE.HOUR){
-      self.renderHours();
-    }
-    else {
-      self.renderMinutes();
-    }
-  });
-
-  this.hours.on('change', function(){
+  this.hours.on('change', function(value){
     self.minutes.reset();
     self.minutes.value = null;
     self.renderMinutes();
     self.emit('change', self.getTime());
+    self.emit('change:hour', value);
   });
 
-  this.minutes.on('change', function(){
+  this.minutes.on('change', function(value){
     self.renderStart();
     self.emit('change', self.getTime());
+    self.emit('change:minute', value);
   });
+
+  this.amPm.show();
 };
 
 /**
@@ -66,9 +57,10 @@ var TimePicker = function (options){
  * @function renderStart
  */
 TimePicker.prototype.renderStart = function(){
+  this.handContainer.classList.add('is-hidden');
   this.minutes.hide();
-  this.disableClockFace();
-  this.hours.show(this.timePart.value);
+  this.hours.hide();
+  this.amPm.show();
 };
 
 /**
@@ -77,9 +69,19 @@ TimePicker.prototype.renderStart = function(){
  * @function renderHours
  */
 TimePicker.prototype.renderHours = function(){
+  this.handContainer.classList.remove('is-hidden');
   this.minutes.hide();
-  this.enableClockFace();
-  this.hours.show(this.timePart.value);
+  this.amPm.hide();
+  this.hours.show(this.amPm.value);
+  if(typeof this.hours.value === 'number' && this.hours.value > -1) {
+    this.setHand(this.hours.value);
+  }
+  else if(this.hours.validator){
+    this.setHand(this.hours.validator.firstHour(this.amPm.value).hour);
+  }
+  else {
+    this.setHand(12);
+  }
 };
 
 /**
@@ -88,9 +90,19 @@ TimePicker.prototype.renderHours = function(){
  * @function renderMinutes
  */
 TimePicker.prototype.renderMinutes = function(){
+  this.handContainer.classList.remove('is-hidden');
   this.hours.hide();
-  this.enableClockFace();
-  this.minutes.show(this.hours.value, this.timePart.value);
+  this.amPm.hide();
+  this.minutes.show(this.hours.value, this.amPm.value);
+  if(typeof this.minutes.value === 'number' && this.minutes.value > -1) {
+    this.setHand((this.minutes.value / 5) || 12);
+  }
+  else if(this.minutes.validator){
+    this.setHand((this.minutes.validator.firstMinute(this.hours.value, this.amPm.value).minute / 5) || 12);
+  }
+  else {
+    this.setHand(12);
+  }
 };
 
 /**
@@ -108,7 +120,7 @@ TimePicker.prototype.show = TimePicker.prototype.renderStart;
  * @returns {Boolean}
  */
 TimePicker.prototype.hasTime = function(){
-  return (!!this.timePart.value && !!this.hours.value && !!this.minutes.value);
+  return (!!this.amPm.value && !!this.hours.value && !!this.minutes.value);
 };
 
 /**
@@ -128,14 +140,25 @@ TimePicker.prototype.updateValid = function(valid){
  * returns the currently selected time
  * @public
  * @type {Function}
- * @returns {{hours: Number, minutes: Number, timePart: Number}}
+ * @returns {{hours: Number, minutes: Number, amPm: Number}}
  */
 TimePicker.prototype.getTime = function(){
   return {
     hours: this.hours.value,
     minutes: this.minutes.value,
-    timePart: this.timePart.value
+    amPm: this.amPm.value
   };
+};
+
+TimePicker.prototype.resetHand = function(){
+  for(var i = 1; i <= 12; i++){
+    this.handEl.classList.remove('timepicker-hand__stick--' + i);
+  }
+};
+
+TimePicker.prototype.setHand = function(time){
+  this.resetHand();
+  this.handEl.classList.add('timepicker-hand__stick--' + time);
 };
 
 /**
@@ -148,25 +171,8 @@ TimePicker.prototype.reset = function(){
   this.hours.value = null;
   this.minutes.reset();
   this.minutes.value = null;
+  this.setHand(12);
   this.emit('change', this.getTime());
-};
-
-/**
- * removes the enabled clock face style
- * @private
- * @type {Function}
- */
-TimePicker.prototype.disableClockFace = function (){
-  this.clockFace.classList.remove('timepicker__clockface--enabled');
-};
-
-/**
- * adds the enabled clock face style
- * @private
- * @type {Function}
- */
-TimePicker.prototype.enableClockFace = function (){
-  this.clockFace.classList.add('timepicker__clockface--enabled');
 };
 
 /**
