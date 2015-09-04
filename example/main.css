@@ -64,6 +64,7 @@
 .timepicker__hours > div.timepicker-hour--enabled,
 .timepicker__minutes > div.timepicker-minute--enabled {
   color: #FFFFFF;
+  z-index: 10;
 }
 .timepicker__hours > div.timepicker-hour--enabled:hover,
 .timepicker__minutes > div.timepicker-minute--enabled:hover,
@@ -207,80 +208,69 @@ div.timepicker__desc {
 }
 
 .timepicker-hand {
-
+  height: 0;
 }
-
-.timepicker-hand__center {
-  border-radius: 5px;
-  width: 10px;
-  height: 10px;
-  background: #FFFFFF;
+.timepicker-hand__container {
   position: relative;
-  top: 105px;
+  height: 180px;
+  width: 180px;
+  top: 20px;
   margin: 0 auto;
-}
-.timepicker-hand__stick {
-  border: 1px solid #FFFFFF;
-  width: 60px;
-  position: relative;
-  margin: 0 auto;
+  transition: transform 300ms;
   z-index: 5;
 }
 
+.timepicker-hand__center {
+  border-radius: 6px;
+  width: 12px;
+  height: 12px;
+  background: #FFFFFF;
+  position: relative;
+  top: 84px;
+  margin: 0 auto;
+}
+.timepicker-hand__stick {
+  border: 2px solid #FFFFFF;
+  height: 65px;
+  width: 0;
+  position: relative;
+  margin: 0 auto;
+  top: 14px;
+}
+
 .timepicker-hand__stick--12 {
-  transform: rotate(90deg);
-  top: 65px;
+
 }
 .timepicker-hand__stick--1 {
-  transform: rotate(120deg);
-  top: 68px;
-  left: 18px;
+  transform: rotate(30deg);
 }
 .timepicker-hand__stick--2 {
-  transform: rotate(150deg);
-  top: 83px;
-  left: 29px;
+  transform: rotate(60deg);
 }
 .timepicker-hand__stick--3 {
-  transform: rotate(180deg);
-  top: 99px;
-  left: 35px;
+  transform: rotate(90deg);
 }
 .timepicker-hand__stick--4 {
-  transform: rotate(210deg);
-  top: 117px;
-  left: 31px;
+  transform: rotate(120deg);
 }
 .timepicker-hand__stick--5 {
-  transform: rotate(240deg);
-  top: 125px;
-  left: 15px;
+  transform: rotate(150deg);
 }
 .timepicker-hand__stick--6 {
-  transform: rotate(270deg);
-  top: 134px;
+  transform: rotate(180deg);
 }
 .timepicker-hand__stick--7 {
-  transform: rotate(300deg);
-  top: 130px;
-  right: 17px;
+  transform: rotate(210deg);
 }
 .timepicker-hand__stick--8 {
-  transform: rotate(330deg);
-  top: 114px;
-  right: 27px;
+  transform: rotate(240deg);
 }
 .timepicker-hand__stick--9 {
-  top: 99px;
-  right: 30px;
+  transform: rotate(270deg);
 }
 .timepicker-hand__stick--10 {
-  transform: rotate(30deg);
-  top: 84px;
-  right: 28px;
+  transform: rotate(300deg);
 }
 .timepicker-hand__stick--11 {
-  transform: rotate(60deg);
-  top: 72px;
-  right: 16px;
+  transform: rotate(330deg);
 }

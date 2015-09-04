@@ -150,15 +150,14 @@ TimePicker.prototype.getTime = function(){
   };
 };
 
-TimePicker.prototype.resetHand = function(){
-  for(var i = 1; i <= 12; i++){
-    this.handEl.classList.remove('timepicker-hand__stick--' + i);
-  }
-};
+// TODO shortest path algorithm
+//TimePicker.prototype.getHand = function(time){
+//
+//};
 
 TimePicker.prototype.setHand = function(time){
   this.resetHand();
-  this.handEl.classList.add('timepicker-hand__stick--' + time);
+  this.handEl.style.transform = 'rotate(' + time * 30 + 'deg)';
 };
 
 /**
