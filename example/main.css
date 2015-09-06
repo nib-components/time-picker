@@ -196,9 +196,6 @@ div.timepicker__pm {
   background: #0a6d12;
   width: 107px;
 }
-.timepicker__ampm {
-
-}
 
 div.timepicker__desc {
   color: #00AD28;
@@ -236,10 +233,6 @@ div.timepicker__desc {
   position: relative;
   margin: 0 auto;
   top: 14px;
-}
-
-.timepicker-hand__stick--12 {
-
 }
 .timepicker-hand__stick--1 {
   transform: rotate(30deg);
