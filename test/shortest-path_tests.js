@@ -34,15 +34,35 @@ describe('ShortestPath', function() {
       expect(expected).toEqual(result);
     });
 
-    //it('should find a forward then backward path', function(){
-    //  expected = 30;
-    //  result = path.find(1);
-    //  expect(expected).toEqual(result);
-    //
-    //  expected = 30;
-    //  result = path.find(1);
-    //  expect(expected).toEqual(result);
-    //});
+    it('should step backwards twice', function(){
+      expected = -30;
+      result = path.find(11);
+      expect(expected).toEqual(result);
+
+      expected = -60;
+      result = path.find(10);
+      expect(expected).toEqual(result);
+    });
+
+    it('should find a forward then backward path', function(){
+      expected = 30;
+      result = path.find(1);
+      expect(expected).toEqual(result);
+
+      expected = -60;
+      result = path.find(10);
+      expect(expected).toEqual(result);
+    });
+
+    it('should find a backward then forward path', function(){
+      expected = -60;
+      result = path.find(10);
+      expect(expected).toEqual(result);
+
+      expected = 30;
+      result = path.find(1);
+      expect(expected).toEqual(result);
+    });
 
   });
 

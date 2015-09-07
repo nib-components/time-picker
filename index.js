@@ -4,7 +4,7 @@ var Validator    = require('./src/validator');
 var AmPmPicker   = require('./src/ampm-picker');
 var HourPicker   = require('./src/hour-picker');
 var MinutePicker = require('./src/minute-picker');
-
+var Path         = require('./src/shortest-path');
 /**
  * @module time-picker
  * @class TimePicker
@@ -13,7 +13,7 @@ var MinutePicker = require('./src/minute-picker');
  */
 var TimePicker = function (options){
   var self = this;
-
+  this.path = new Path();
   this.el           = options.el;
   this.el.innerHTML = template;
   var validator = options.valid ? new Validator(options.valid) : null;
@@ -150,14 +150,8 @@ TimePicker.prototype.getTime = function(){
   };
 };
 
-// TODO shortest path algorithm
-//TimePicker.prototype.getHand = function(time){
-//
-//};
-
 TimePicker.prototype.setHand = function(time){
-  this.resetHand();
-  this.handEl.style.transform = 'rotate(' + time * 30 + 'deg)';
+  this.handEl.style.transform = 'rotate(' +  this.path.find(time) + 'deg)';
 };
 
 /**
