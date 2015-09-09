@@ -120,7 +120,7 @@ TimePicker.prototype.show = TimePicker.prototype.renderStart;
  * @returns {Boolean}
  */
 TimePicker.prototype.hasTime = function(){
-  return ((typeof this.amPm.value === 'number' && this.amPm.value > -1) && !!this.hours.value && !!this.minutes.value);
+  return ((typeof this.amPm.value === 'number' && this.amPm.value > -1) && !!this.hours.value && (typeof this.minutes.value === 'number' && this.minutes.value > -1));
 };
 
 /**
