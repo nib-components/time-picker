@@ -151,7 +151,10 @@ TimePicker.prototype.getTime = function(){
 };
 
 TimePicker.prototype.setHand = function(time){
-  this.handEl.style.transform = 'rotate(' +  this.path.find(time) + 'deg)';
+  var deg = this.path.find(time);
+  this.handEl.style.webkitTransform = 'rotate(' +  deg + 'deg)';
+  this.handEl.style.msTransform = 'rotate(' +  deg + 'deg)';
+  this.handEl.style.transform = 'rotate(' +  deg + 'deg)';
 };
 
 /**
