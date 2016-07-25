@@ -1,5 +1,5 @@
 {
-  "name": "time-picker",
+  "name": "@nib-components/time-picker",
   "version": "0.0.10",
   "main": "index.js",
   "dependencies": {
